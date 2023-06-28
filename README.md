@@ -1,0 +1,55 @@
+# DataGenie Hackathon - 2023 (Data Engineering)
+
+This project involves aggregating and transforming data from a data source and loading it into a GCP SQL server. It utilizes Databricks for data processing and Airflow for pipeline automation.
+
+## Dataset
+
+The data source for this project can be accessed at the following link from Google BigQUery:
+
+Dataset Link: [https://console.cloud.google.com/marketplace/product/obfuscated-ga360-data/obfuscated-ga360-data?project=lexical-script-761](https://console.cloud.google.com/marketplace/product/obfuscated-ga360-data/obfuscated-ga360-data?project=lexical-script-761)
+
+## Databricks and GCP Cluster Details
+
+Databricks is used for data processing, and the GCP SQL server is used for hosting the transformed data. You can log in to both platforms using the following credentials:
+
+- Databricks:
+  - Host: [https://3600576718119515.5.gcp.databricks.com/](https://3600576718119515.5.gcp.databricks.com/)
+  - Workspace: "haresh"
+  - Jobs: Extract, Transform, Load
+
+- GCP SQL Server:
+  - IP Address: 34.93.91.188
+  - Instance Name: "databricks"
+  - Login Credentials: 
+    - Email: hareshbaskaran.work@gmail.com
+    - Password: Dertuport0208
+  - MySQL JDBC Connector Configuration:
+    ```python
+    config = {
+        'user': 'root',
+        'host': '34.93.99.179',
+        'client_flags': [ClientFlag.SSL],
+        'ssl_ca': '/dbfs/FileStore/server_ca__3_.pem',
+        'ssl_cert': '/dbfs/FileStore/client_cert.pem',
+        'ssl_key': '/dbfs/FileStore/client_key.pem'
+    }
+    ```
+
+## Airflow Setup
+
+To set up the Airflow pipeline, follow these steps:
+
+1. Clone the project repository from GitHub.
+2. Navigate to the project directory.
+3. Start the Docker engine by running the following command: 
+ ```python
+    docker-compose up -d --build
+ ```
+5. Ensure that the Docker daemon is running.
+6. Access the Airflow UI by going to [localhost:8080](http://localhost:8080).
+7. In the Airflow UI, go to Admin > Connections.
+8. Locate the `databricks_default` connection and click on the Edit button.
+9. Update the "Extra" field with the following JSON format:
+```json
+{"host":"https://3600576718119515.5.gcp.databricks.com/","token":"dapi37dc26d8dabd83d7a9241d82318e2ed0"}
+
