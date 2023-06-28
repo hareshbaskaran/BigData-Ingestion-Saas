@@ -41,12 +41,15 @@ To set up the Airflow pipeline, follow these steps:
 
 1. Clone the project repository from GitHub.
 2. Navigate to the project directory.
-3. Start the Docker engine by running the following command: docker-compose up -d --build
-4. Ensure that the Docker daemon is running.
-5. Access the Airflow UI by going to [localhost:8080](http://localhost:8080).
-6. In the Airflow UI, go to Admin > Connections.
-7. Locate the `databricks_default` connection and click on the Edit button.
-8. Update the "Extra" field with the following JSON format:
+3. Start the Docker engine by running the following command: 
+ ```python
+    docker-compose up -d --build
+    ```
+5. Ensure that the Docker daemon is running.
+6. Access the Airflow UI by going to [localhost:8080](http://localhost:8080).
+7. In the Airflow UI, go to Admin > Connections.
+8. Locate the `databricks_default` connection and click on the Edit button.
+9. Update the "Extra" field with the following JSON format:
 ```json
 {"host":"https://3600576718119515.5.gcp.databricks.com/","token":"dapi37dc26d8dabd83d7a9241d82318e2ed0"}
 
