@@ -44,7 +44,7 @@ To set up the Airflow pipeline, follow these steps:
 3. Start the Docker engine by running the following command: 
  ```python
     docker-compose up -d --build
-    ```
+ ```
 5. Ensure that the Docker daemon is running.
 6. Access the Airflow UI by going to [localhost:8080](http://localhost:8080).
 7. In the Airflow UI, go to Admin > Connections.
