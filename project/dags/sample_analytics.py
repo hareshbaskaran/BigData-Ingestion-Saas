@@ -35,9 +35,7 @@ default_args = {
 }
 
 with DAG(dag_id='sample_analytics',
-         schedule_interval=None,
-         #testing for manual triggers 
-         #schedule_interval=timedelta(hours=4),
+         schedule_interval=timedelta(hours=4),
          default_args=default_args) as dag:
 
     start = DummyOperator(task_id='start_etl_airflow')
@@ -61,7 +59,7 @@ with DAG(dag_id='sample_analytics',
         },
         dag=dag
     )
-
+   
     load = DatabricksRunNowOperator(
         task_id='load_postgre',
                 databricks_conn_id='databricks_default',
