@@ -9,3 +9,36 @@ default_args = {
   'start_date': datetime(2023, 6, 24, 1),
   'owner': 'airflow'
 }
+with DAG(dag_id='sample_360',
+          schedule_interval=timedelta(hours=2),
+          default_args=default_args) as dag:
+  start = DummyOperator(task_id='start_etl_airflow')
+  extract = DatabricksRunNowOperator(
+    task_id = 'extract_bigquery',
+    databricks_conn_id = 'databricks_default',
+    job_id = "309433312561047",
+    notebook_params={
+        'input_table': 'ga_sessions_*',
+    },
+    dag=dag
+  )
+  transform = DatabricksRunNowOperator(
+    task_id = 'transform_ts',
+    databricks_conn_id = 'databricks_default',
+    job_id = "302678166028164",
+    notebook_params={
+        'transform': 'timeseries'
+    },
+    dag=dag
+  )
+  load = DatabricksRunNowOperator(
+    task_id = 'load_mysql',
+    databricks_conn_id = 'databricks_default',
+    job_id = "719551178914251",
+    notebook_params={
+        'output_table': 'ga_ts'
+    },
+    dag=dag
+  )
+  stop = DummyOperator(task_id='loaded_gcpmysql')
+  start>>extract>>transform>>load>>stop
