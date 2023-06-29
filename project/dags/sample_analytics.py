@@ -64,7 +64,7 @@ with DAG(dag_id='sample_analytics',
     load = DatabricksRunNowOperator(
         task_id='load_postgre',
                 databricks_conn_id='databricks_default',
-        job_id="853797615576758",
+        job_id="432818082145600",
         notebook_params={
             'output_table': 'sample_analytics'
         },
@@ -76,7 +76,7 @@ with DAG(dag_id='sample_analytics',
         python_callable=handle_failure,
         provide_context=True
     )
-    stop = DummyOperator(task_id='loaded_postgres')
+    stop = DummyOperator(task_id='handle_success')
     start >> extract >> handle_failure_task
     extract >> transform >> handle_failure_task
     transform >> load >> stop
