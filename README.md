@@ -50,5 +50,5 @@ To set up the Airflow pipeline, follow these steps:
 8. Locate the `databricks_default` connection and click on the Edit button.
 9. Update the "Extra" field with the following JSON format:
 ```json
-{"host":"https://3600576718119515.5.gcp.databricks.com/","token":"dapi37dc26d8dabd83d7a9241d82318e2ed0"}
+{"host":"https://3600576718119515.5.gcp.databricks.com/","token":"6fcef126d7bff07cfcd1b4220dc8d2f58b977c58fd199ea9dffe3927363f7c21"}
 
