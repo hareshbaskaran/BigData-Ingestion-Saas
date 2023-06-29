@@ -2,6 +2,13 @@
 
 This project involves aggregating and transforming data from a data source and loading it into a GCP SQL server. It utilizes Databricks for data processing and Airflow for pipeline automation.
 
+## Presentation
+
+-Demo Video :
+  -link : https://clipchamp.com/watch/rhgBVn63vau
+
+  -Workflow : https://lucid.app/lucidspark/9d8980e9-3d8d-488f-a18e-e1eac35aecfd/edit?viewport_loc=9677%2C-3518%2C24934%2C12284%2C0_0&invitationId=inv_bb9ba444-5cc0-421b-a60c-d1f6f9eaa38b
+
 ## Dataset
 
 The data source for this project can be accessed at the following link from Google BigQUery:
@@ -51,6 +58,5 @@ To set up the Airflow pipeline, follow these steps:
 9. To run the email operator get your apppassword from google and update in airflow.cfg 
 10. Update the "Extra" field with the following JSON format:
 ```json
-{"host":"https://3600576718119515.5.gcp.databricks.com/","token":"dapi2aac1b500daa583700ea7ac51e1d809c"}
-
+{"host":"https://3600576718119515.5.gcp.databricks.com/","token":"dapi2aac1b500daa583700ea7ac51e1d809c"} 
 
