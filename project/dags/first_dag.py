@@ -32,13 +32,13 @@ with DAG(dag_id='sample_360',
     dag=dag
   )
   load = DatabricksRunNowOperator(
-    task_id = 'load_mysql',
+    task_id = 'load_postgre',
     databricks_conn_id = 'databricks_default',
-    job_id = "719551178914251",
+    job_id = "853797615576758",
     notebook_params={
-        'output_table': 'ga_ts'
+        'output_table': 'sample_analytics'
     },
     dag=dag
   )
-  stop = DummyOperator(task_id='loaded_gcpmysql')
+  stop = DummyOperator(task_id='loaded_postgresql')
   start>>extract>>transform>>load>>stop
