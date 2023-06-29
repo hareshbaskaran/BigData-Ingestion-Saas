@@ -10,28 +10,27 @@ Dataset Link: [https://console.cloud.google.com/marketplace/product/obfuscated-g
 
 ## Databricks and GCP Cluster Details
 
-Databricks is used for data processing, and the GCP SQL server is used for hosting the transformed data. You can log in to both platforms using the following credentials:
+Databricks is used for data processing, and the GCP PostgreSQL server is used for hosting the transformed data. You can log in to both platforms using the following credentials:
 
 - Databricks:
   - Host: [https://3600576718119515.5.gcp.databricks.com/](https://3600576718119515.5.gcp.databricks.com/)
   - Workspace: "haresh"
   - Jobs: Extract, Transform, Load
 
-- GCP SQL Server:
-  - IP Address: 34.93.91.188
-  - Instance Name: "databricks"
+- GCP POSTGRESQL Server:
+  - IP Address: 34.30.53.0
+  - Instance Name: "haresh"
   - Login Credentials: 
     - Email: hareshbaskaran.work@gmail.com
     - Password: Dertuport0208
-  - MySQL JDBC Connector Configuration:
+  - PostgreSql JDBC Connector (Psycog2) Configuration:
     ```python
     config = {
-        'user': 'root',
-        'host': '34.93.99.179',
-        'client_flags': [ClientFlag.SSL],
-        'ssl_ca': '/dbfs/FileStore/server_ca__3_.pem',
-        'ssl_cert': '/dbfs/FileStore/client_cert.pem',
-        'ssl_key': '/dbfs/FileStore/client_key.pem'
+        database="haresh",
+        host="34.30.53.0",
+        user="haresh",
+        password="haresh",
+        port='5432'
     }
     ```
 
