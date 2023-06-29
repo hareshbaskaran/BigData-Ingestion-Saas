@@ -44,12 +44,9 @@ def handle_success(context):
     )
     email_task.execute(context)
 
-
 default_args = {
     'start_date': datetime(2023, 6, 24, 1),
-    'owner': 'airflow',
-    'on_failure_callback': handle_failure,
-    'on_success_callback': handle_success
+    'owner': 'airflow'
 }
 
 with DAG(dag_id='sample_360',
@@ -80,13 +77,14 @@ with DAG(dag_id='sample_360',
 
     load = DatabricksRunNowOperator(
         task_id='load_postgre',
-        databricks_conn_id='databricks_default',
+                databricks_conn_id='databricks_default',
         job_id="853797615576758",
         notebook_params={
             'output_table': 'sample_analytics'
         },
         dag=dag
     )
+
     handle_failure_task = PythonOperator(
         task_id='handle_failure',
         python_callable=handle_failure,
@@ -100,9 +98,9 @@ with DAG(dag_id='sample_360',
     )
 
     stop = DummyOperator(task_id='loaded_postgres')
-    start >> extract >> transform >> load >> handle_success_task >> stop
-    extract >> handle_failure_task
-    transform>> handle_failure_task
-    load>> handle_failure_task
 
+    start >> extract >> handle_failure_task
+    extract >> transform >> handle_failure_task
+    transform >> load >> handle_success_task >> stop
 
+       
