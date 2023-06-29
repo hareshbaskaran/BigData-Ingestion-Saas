@@ -13,7 +13,6 @@ def handle_failure(context):
     task_instance = context['task_instance']
     task_id = task_instance.task_id
     execution_date = task_instance.execution_date
-
     email_subject = f"Task Failed: {task_id}"
     email_body = f"The task '{task_id}' failed on {execution_date}."
     to_email = 'hareshbaskaran.work@gmail.com'
@@ -28,7 +27,9 @@ def handle_failure(context):
 #THE SCHEDULE IS GIVEN IN 4 HOUR INTERVAL SO IT WILL JUNK UP THE MAIL FOR SUCCESS
 #HAVE IMPLEMENTED EMAIL OPERATOR ONLY FOR ANY FAILURE
 
-start_date = start_date = datetime(2023, 6, 29, 6,30)
+start_date = datetime(2023, 6, 29, 6,30)
+#USE THIS FOR DATETIME UNSPECIFIC 
+#start_date = datetime.now()
 default_args = {
   'start_date': start_date,
   'owner': 'airflow'
