@@ -99,7 +99,7 @@ with DAG(dag_id='sample_360',
         provide_context=True
     )
 
-    stop = DummyOperator(task_id='loaded_gcpmysql')
+    stop = DummyOperator(task_id='loaded_postgres')
     start >> extract >> transform >> load >> handle_success_task >> stop
     extract >> handle_failure_task
     transform>> handle_failure_task
