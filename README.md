@@ -48,7 +48,9 @@ To set up the Airflow pipeline, follow these steps:
 6. Access the Airflow UI by going to [localhost:8080](http://localhost:8080).
 7. In the Airflow UI, go to Admin > Connections.
 8. Locate the `databricks_default` connection and click on the Edit button.
-9. Update the "Extra" field with the following JSON format:
+9. To run the email operator get your apppassword from google and update in airflow.cfg 
+10. Update the "Extra" field with the following JSON format:
 ```json
 {"host":"https://3600576718119515.5.gcp.databricks.com/","token":"dapi2aac1b500daa583700ea7ac51e1d809c"}
+
 
