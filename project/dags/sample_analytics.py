@@ -7,9 +7,8 @@ from airflow.contrib.operators.spark_sql_operator import SparkSqlOperator
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import Variable
-
 from airflow.operators.email_operator import EmailOperator
-
+#setup smtm connections in airflow.cfg for evaluation to your account and your device
 def handle_failure(context):
     task_instance = context['task_instance']
     task_id = task_instance.task_id
@@ -26,31 +25,19 @@ def handle_failure(context):
         html_content=email_body
     )
     email_task.execute(context)
+#THE SCHEDULE IS GIVEN IN 4 HOUR INTERVAL SO IT WILL JUNK UP THE MAIL FOR SUCCESS
+#HAVE IMPLEMENTED EMAIL OPERATOR ONLY FOR ANY FAILURE
 
-def handle_success(context):
-    task_instance = context['task_instance']
-    task_id = task_instance.task_id
-    execution_date = task_instance.execution_date
-
-    email_subject = f"Task Succeeded: {task_id}"
-    email_body = f"The task '{task_id}' succeeded on {execution_date}."
-    to_email = 'hareshbaskaran.work@gmail.com'
-
-    email_task = EmailOperator(
-        task_id='send_success_email',
-        to=to_email,
-        subject=email_subject,
-        html_content=email_body
-    )
-    email_task.execute(context)
-
+start_date = start_date = datetime(2023, 6, 29, 6,30)
 default_args = {
-    'start_date': datetime(2023, 6, 24, 1),
-    'owner': 'airflow'
+  'start_date': start_date,
+  'owner': 'airflow'
 }
 
-with DAG(dag_id='sample_360',
-         schedule_interval=timedelta(hours=3),
+with DAG(dag_id='sample_analytics',
+         schedule_interval=None,
+         #testing for manual triggers 
+         #schedule_interval=timedelta(hours=4),
          default_args=default_args) as dag:
 
     start = DummyOperator(task_id='start_etl_airflow')
@@ -58,7 +45,7 @@ with DAG(dag_id='sample_360',
     extract = DatabricksRunNowOperator(
         task_id='extract_bigquery',
         databricks_conn_id='databricks_default',
-        job_id="309433312561047",
+        job_id="372533610331023",
         notebook_params={
             'input_table': 'ga_sessions_*',
         },
@@ -90,17 +77,9 @@ with DAG(dag_id='sample_360',
         python_callable=handle_failure,
         provide_context=True
     )
-
-    handle_success_task = PythonOperator(
-        task_id='handle_success',
-        python_callable=handle_success,
-        provide_context=True
-    )
-
     stop = DummyOperator(task_id='loaded_postgres')
-
     start >> extract >> handle_failure_task
     extract >> transform >> handle_failure_task
-    transform >> load >> handle_success_task >> stop
+    transform >> load >> stop
 
        
