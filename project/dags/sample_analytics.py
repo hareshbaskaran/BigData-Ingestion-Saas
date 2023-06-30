@@ -27,16 +27,17 @@ def handle_failure(context):
 #THE SCHEDULE IS GIVEN IN 4 HOUR INTERVAL SO IT WILL JUNK UP THE MAIL FOR SUCCESS
 #HAVE IMPLEMENTED EMAIL OPERATOR ONLY FOR ANY FAILURE
 
-start_date = datetime(2023, 6, 29, 6,30)
+start_date = datetime(2023, 6, 30, 1)
 #USE THIS FOR DATETIME UNSPECIFIC 
-#start_date = datetime.now()
 default_args = {
   'start_date': start_date,
   'owner': 'airflow'
 }
 
 with DAG(dag_id='sample_analytics',
-         schedule_interval=timedelta(hours=4),
+         schedule_interval=None,
+         #for testing scheduling to none for scheduling can  use timedelta and set hour interval as mentioned below:
+         #schedule_interval=timedelta(hours=4),
          default_args=default_args) as dag:
 
     start = DummyOperator(task_id='start_etl_airflow')
@@ -54,7 +55,7 @@ with DAG(dag_id='sample_analytics',
     transform = DatabricksRunNowOperator(
         task_id='transform_ts',
         databricks_conn_id='databricks_default',
-        job_id="302678166028164",
+        job_id="879006915808540",
         notebook_params={
             'transform': 'timeseries'
         },
