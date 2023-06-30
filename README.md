@@ -19,7 +19,7 @@ Dataset Link: [https://console.cloud.google.com/marketplace/product/obfuscated-g
 
 Databricks is used for data processing, and the GCP PostgreSQL server is used for hosting the transformed data. You can log in to both platforms using the following credentials:
 
-- Databricks:
+- Databricks: Turn on cluster when in use 
   - Host: [https://3600576718119515.5.gcp.databricks.com/](https://3600576718119515.5.gcp.databricks.com/)
   - Workspace: "haresh"
   - Jobs: Extract, Transform, Load
