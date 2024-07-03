@@ -1,4 +1,4 @@
-# DataGenie Hackathon - 2023 (Data Engineering)
+# Data Ingestion(ETL-Pipeline) Job Management - Google Sample Analytics
 
 This project involves aggregating and transforming data from a data source and loading it into a GCP SQL server. It utilizes Databricks for data processing and Airflow for pipeline automation.
 
